@@ -14,8 +14,9 @@ class Book:
   category: str
   rating: float
   published_date: int
+  is_read: bool
   
-  def __init__(self, id, title, author, description, category, rating, published_date):
+  def __init__(self, id, title, author, description, category, rating, published_date, is_read):
     self.id = id
     self.title = title
     self.author = author
@@ -23,29 +24,30 @@ class Book:
     self.category = category
     self.rating = rating
     self.published_date = published_date
+    self.is_read = is_read
 
 
 books_data = [
-  {"id": 1, "title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "category": "Fiction", "description": "A tale of wealth, love, and the American Dream.", "rating": 4.5, "published_date": 1925},
-  {"id": 2, "title": "To Kill a Mockingbird", "author": "Harper Lee", "category": "Classics", "description": "A powerful exploration of racial injustice in the American South.", "rating": 4.8, "published_date": 1960},
-  {"id": 3, "title": "1984", "author": "George Orwell", "category": "Dystopian", "description": "A dystopian novel depicting a totalitarian society.", "rating": 4.7, "published_date": 1949},
-  {"id": 4, "title": "The Catcher in the Rye", "author": "J.D. Salinger", "category": "Coming of Age", "description": "A classic coming-of-age novel capturing teenage angst.", "rating": 4.2, "published_date": 1951},
-  {"id": 5, "title": "Harry Potter and the Sorcerer's Stone", "author": "J.K. Rowling", "category": "Fantasy", "description": "The first book in the magical Harry Potter series.", "rating": 4.9, "published_date": 1997},
-  {"id": 6, "title": "The Hobbit", "author": "J.R.R. Tolkien", "category": "Adventure", "description": "An epic fantasy adventure of Bilbo Baggins.", "rating": 4.6, "published_date": 1937},
-  {"id": 7, "title": "Pride and Prejudice", "author": "Jane Austen", "category": "Classics", "description": "A classic novel exploring love, marriage, and social status.", "rating": 4.4, "published_date": 1813},
-  {"id": 8, "title": "Animal Farm", "author": "George Orwell", "category": "Dystopian", "description": "An allegorical novella depicting a farm's rebellion against humans.", "rating": 4.7, "published_date": 1945},
-  {"id": 9, "title": "Brave New World", "author": "Aldous Huxley", "category": "Dystopian", "description": "A dystopian novel exploring a society obsessed with happiness.", "rating": 4.6, "published_date": 1932},
-  {"id": 10, "title": "The Lord of the Rings", "author": "J.R.R. Tolkien", "category": "Fantasy", "description": "An epic fantasy trilogy set in the world of Middle-earth.", "rating": 4.9, "published_date": 1954},
-  {"id": 11, "title": "The Catcher in the Rye", "author": "J.D. Salinger", "category": "Coming of Age", "description": "A classic coming-of-age novel capturing teenage angst.", "rating": 4.2, "published_date": 1951},
-  {"id": 12, "title": "The Chronicles of Narnia", "author": "C.S. Lewis", "category": "Fantasy", "description": "A series of seven fantasy novels set in the magical land of Narnia.", "rating": 4.8, "published_date": 1950},
-  {"id": 13, "title": "Jane Eyre", "author": "Charlotte Brontë", "category": "Classics", "description": "A classic novel depicting the life of an orphaned girl.", "rating": 4.5, "published_date": 1847},
-  {"id": 14, "title": "One Hundred Years of Solitude", "author": "Gabriel García Márquez", "category": "Magical Realism", "description": "A landmark novel blending reality and fantasy in the town of Macondo.", "rating": 4.7, "published_date": 1967},
-  {"id": 15, "title": "The Shining", "author": "Stephen King", "category": "Horror", "description": "A psychological horror novel set in an isolated hotel.", "rating": 4.3, "published_date": 1977},
-  {"id": 16, "title": "The Hitchhiker's Guide to the Galaxy", "author": "Douglas Adams", "category": "Science Fiction", "description": "A humorous science fiction series exploring the galaxy.", "rating": 4.6, "published_date": 1979},
-  {"id": 17, "title": "The Hunger Games", "author": "Suzanne Collins", "category": "Dystopian", "description": "A dystopian novel set in a post-apocalyptic world.", "rating": 4.5, "published_date": 2008},
-  {"id": 18, "title": "The Alchemist", "author": "Paulo Coelho", "category": "Philosophical Fiction", "description": "A philosophical novel following a journey of self-discovery.", "rating": 4.8, "published_date": 1988},
-  {"id": 19, "title": "Wuthering Heights", "author": "Emily Brontë", "category": "Gothic Fiction", "description": "A tale of love and revenge on the Yorkshire moors.", "rating": 4.4, "published_date": 1847},
-  {"id": 20, "title": "Frankenstein", "author": "Mary Shelley", "category": "Gothic Science Fiction", "description": "A classic novel exploring the consequences of playing god.", "rating": 4.6, "published_date": 1818}
+  {"id": 1, "title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "category": "Fiction", "description": "A tale of wealth, love, and the American Dream.", "rating": 4.5, "published_date": 1925, "is_read": False},
+  {"id": 2, "title": "To Kill a Mockingbird", "author": "Harper Lee", "category": "Classics", "description": "A powerful exploration of racial injustice in the American South.", "rating": 4.8, "published_date": 1960, "is_read": False},
+  {"id": 3, "title": "1984", "author": "George Orwell", "category": "Dystopian", "description": "A dystopian novel depicting a totalitarian society.", "rating": 4.7, "published_date": 1949, "is_read": False},
+  {"id": 4, "title": "The Catcher in the Rye", "author": "J.D. Salinger", "category": "Coming of Age", "description": "A classic coming-of-age novel capturing teenage angst.", "rating": 4.2, "published_date": 1951, "is_read": False},
+  {"id": 5, "title": "Harry Potter and the Sorcerer's Stone", "author": "J.K. Rowling", "category": "Fantasy", "description": "The first book in the magical Harry Potter series.", "rating": 4.9, "published_date": 1997, "is_read": False},
+  {"id": 6, "title": "The Hobbit", "author": "J.R.R. Tolkien", "category": "Adventure", "description": "An epic fantasy adventure of Bilbo Baggins.", "rating": 4.6, "published_date": 1937, "is_read": False},
+  {"id": 7, "title": "Pride and Prejudice", "author": "Jane Austen", "category": "Classics", "description": "A classic novel exploring love, marriage, and social status.", "rating": 4.4, "published_date": 1813, "is_read": False},
+  {"id": 8, "title": "Animal Farm", "author": "George Orwell", "category": "Dystopian", "description": "An allegorical novella depicting a farm's rebellion against humans.", "rating": 4.7, "published_date": 1945, "is_read": False},
+  {"id": 9, "title": "Brave New World", "author": "Aldous Huxley", "category": "Dystopian", "description": "A dystopian novel exploring a society obsessed with happiness.", "rating": 4.6, "published_date": 1932, "is_read": False},
+  {"id": 10, "title": "The Lord of the Rings", "author": "J.R.R. Tolkien", "category": "Fantasy", "description": "An epic fantasy trilogy set in the world of Middle-earth.", "rating": 4.9, "published_date": 1954, "is_read": False},
+  {"id": 11, "title": "The Catcher in the Rye", "author": "J.D. Salinger", "category": "Coming of Age", "description": "A classic coming-of-age novel capturing teenage angst.", "rating": 4.2, "published_date": 1951, "is_read": False},
+  {"id": 12, "title": "The Chronicles of Narnia", "author": "C.S. Lewis", "category": "Fantasy", "description": "A series of seven fantasy novels set in the magical land of Narnia.", "rating": 4.8, "published_date": 1950, "is_read": False},
+  {"id": 13, "title": "Jane Eyre", "author": "Charlotte Brontë", "category": "Classics", "description": "A classic novel depicting the life of an orphaned girl.", "rating": 4.5, "published_date": 1847, "is_read": False},
+  {"id": 14, "title": "One Hundred Years of Solitude", "author": "Gabriel García Márquez", "category": "Magical Realism", "description": "A landmark novel blending reality and fantasy in the town of Macondo.", "rating": 4.7, "published_date": 1967, "is_read": False},
+  {"id": 15, "title": "The Shining", "author": "Stephen King", "category": "Horror", "description": "A psychological horror novel set in an isolated hotel.", "rating": 4.3, "published_date": 1977, "is_read": False},
+  {"id": 16, "title": "The Hitchhiker's Guide to the Galaxy", "author": "Douglas Adams", "category": "Science Fiction", "description": "A humorous science fiction series exploring the galaxy.", "rating": 4.6, "published_date": 1979, "is_read": False},
+  {"id": 17, "title": "The Hunger Games", "author": "Suzanne Collins", "category": "Dystopian", "description": "A dystopian novel set in a post-apocalyptic world.", "rating": 4.5, "published_date": 2008, "is_read": False},
+  {"id": 18, "title": "The Alchemist", "author": "Paulo Coelho", "category": "Philosophical Fiction", "description": "A philosophical novel following a journey of self-discovery.", "rating": 4.8, "published_date": 1988, "is_read": False},
+  {"id": 19, "title": "Wuthering Heights", "author": "Emily Brontë", "category": "Gothic Fiction", "description": "A tale of love and revenge on the Yorkshire moors.", "rating": 4.4, "published_date": 1847, "is_read": False},
+  {"id": 20, "title": "Frankenstein", "author": "Mary Shelley", "category": "Gothic Science Fiction", "description": "A classic novel exploring the consequences of playing god.", "rating": 4.6, "published_date": 1818, "is_read": False}
 ]
 
 
@@ -60,6 +62,7 @@ class BookRequest(BaseModel):
   category: str = Field(min_length=3)
   rating: float = Field(gt=-1, lt=6)
   published_date: int = Field(gt=1999, lt=2031)
+  is_read: bool
   
   class Config:
     json_schema_extra = {
@@ -69,7 +72,8 @@ class BookRequest(BaseModel):
         "description": "Simple description for the best book in the world",
         "category": "Horor",
         "rating": 5,
-        "published_date": 2024
+        "published_date": 2024,
+        "is_read": False
       }
     }
   
