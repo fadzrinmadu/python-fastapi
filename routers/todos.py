@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 from models import Books
 from database import SessionLocal
 from starlette import status
+from .auth import get_current_user
 
 router = APIRouter()
 
@@ -18,6 +19,7 @@ def get_db():
     
     
 db_dependency = Annotated[Session, Depends(get_db)]
+user_dependency = Annotated[dict, Depends(get_current_user)]
 
 
 class BookRequest(BaseModel):
@@ -45,33 +47,67 @@ class BookRequest(BaseModel):
 
 
 @router.get("/books/")
-def get_all_books(db: db_dependency):
-  books = db.query(Books).all()
+async def get_all_books(
+  user: user_dependency,
+  db: db_dependency,
+):
+  if user is None:
+    raise HTTPException(status_code=401, detail="Authentication Failed")
+  
+  books = db.query(Books).filter(Books.owner_id == user.get("id")).all()
   return books
 
 
 @router.get("/books/{book_id}", status_code=status.HTTP_200_OK)
-async def get_book_by_id(db: db_dependency, book_id: int = Path(gt=0)):
-  book_model = db.query(Books).filter(Books.id == book_id).first()
+async def get_book_by_id(
+  user: user_dependency,
+  db: db_dependency, 
+  book_id: int = Path(gt=0)
+):
+  if user is None:
+    raise HTTPException(status_code=401, detail="Authentication Failed")
+  
+  book_model = db.query(Books)\
+    .filter(Books.id == book_id)\
+    .filter(Books.owner_id == user.get("id")).first()
+  
   if book_model is not None:
     return book_model
   raise HTTPException(status_code=404, detail="Book not found.")
 
 
 @router.post("/books/", status_code=status.HTTP_201_CREATED)
-async def create_book(db: db_dependency, book_request: BookRequest):
-  book_model = Books(**book_request.model_dump())
+async def create_book(
+  user: user_dependency,
+  db: db_dependency, 
+  book_request: BookRequest
+):
+  if user is None:
+    raise HTTPException(status_code=401, detail="Authentication Failed")
+  
+  book_model = Books(
+    **book_request.model_dump(),
+    owner_id=user.get("id"),
+  )
+  
   db.add(book_model)
   db.commit()
 
 
 @router.put("/books/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def update_book_by_id(
+  user: user_dependency,
   db: db_dependency, 
   book_request: BookRequest,
   book_id: int = Path(gt=0), 
 ):
-  book_model = db.query(Books).filter(Books.id == book_id).first()
+  if user is None:
+    raise HTTPException(status_code=401, detail="Authentication Failed")
+  
+  book_model = db.query(Books)\
+    .filter(Books.id == book_id)\
+    .filter(Books.owner_id == user.get("id")).first()
+  
   if book_model is None:
     raise HTTPException(status_code=404, detail="Book not found.")
   
@@ -88,10 +124,22 @@ async def update_book_by_id(
 
 
 @router.delete("/books/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_book_by_id(db: db_dependency, book_id: int = Path(gt=0)):
-  book_model = db.query(Books).filter(Books.id == book_id).first()
+async def delete_book_by_id(
+  user: user_dependency,
+  db: db_dependency, 
+  book_id: int = Path(gt=0)
+):
+  if user is None:
+    raise HTTPException(status_code=401, detail="Authentication Failed")
+  
+  book_model = db.query(Books)\
+    .filter(Books.id == book_id)\
+    .filter(Books.owner_id == user.get("id")).first()
+  
   if book_model is None:
     raise HTTPException(status_code=404, detail="Book not found.")
   
-  db.query(Books).filter(Books.id == book_id).delete()
+  db.query(Books)\
+    .filter(Books.id == book_id)\
+    .filter(Books.owner_id == user.get("id")).delete()
   db.commit()
